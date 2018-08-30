@@ -53,13 +53,14 @@ t3 <- t3 %>% rename(Sal=Var1)
 ## Plot Salary
 ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
                       position = 'dodge', stat = 'identity')+
-                xlab('Percentage')+
+                xlab('Percentage(%)')+
                 ylab('Salary')+ 
                 ggtitle('SLIIT vs Local University Salary Expectations')+
                 coord_flip()
 
 ##########################################################################
 ##########################################################################
+##Commute Distance Plot
 col1<-as.data.frame(table(t1$Distance)*100/nrow(t1))
 col2<-as.data.frame(table(t2$Distance)*100/nrow(t2))
 col1$name <- 'SLIIT'
@@ -69,15 +70,39 @@ col2$name <- 'Local Universities'
 t3 <- rbind(col1,col2)
 t3 <- t3 %>% rename(Dis=Var1)
 
-## Plot Salary
+
 ggplot(t3) + geom_bar(aes(x = Dis, y = Freq, fill=name),
                       position = 'dodge', stat = 'identity')+
-  xlab('Percentage')+
+  xlab('Percentage(%)')+
   ylab('Distance')+ 
   ggtitle('SLIIT vs Local University Commute Distance')+
   coord_flip()
+######################################################################
+######################################################################
+##HigherStudies Plot
+col1<-as.data.frame(table(t1$HigherStudies)*100/nrow(t1))
+col2<-as.data.frame(table(t2$HigherStudies)*100/nrow(t2))
+col1$name <- 'SLIIT'
+col2$name <- 'Local Universities'
 
-unique(new_data$Distance)
+
+t3 <- rbind(col1,col2)
+t3 <- t3 %>% rename(Hig=Var1)
+
+
+ggplot(t3) + geom_bar(aes(x = Hig, y = Freq, fill=name),
+                      position = 'dodge', stat = 'identity')+
+  xlab('HigherStudies')+
+  ylab('Percentage(%)')+ 
+  ggtitle('SLIIT vs Local University Higher Studies')
+
+###############################################################################
+##############################################################################
+
+
+
+
+unique(new_data$HigherStudies)
 colnames(new_data)
 
 
