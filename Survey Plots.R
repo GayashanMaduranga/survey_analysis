@@ -126,12 +126,43 @@ ggplot(t3) + geom_bar(aes(x = Pos, y = Freq, fill=name),
   ggtitle('SLIIT vs Local University Higher Studies')
 ###############################################################################
 ##############################################################################
-###6-Expected Salary Vs Commute Distance Graph
+###6-Expected Salary Vs Field Graph
 
 ggplot(new_data,aes(x=Field,y=Salary))+
   geom_point()+facet_grid(WorkPlace~.)+
   xlab('Commute Distance')+
   ylab('Field')
+
+######################################################################
+######################################################################
+##7-Immigration Plot
+col1<-as.data.frame(table(t1$WorkPlace)*100/nrow(t1))
+col2<-as.data.frame(table(t2$WorkPlace)*100/nrow(t2))
+col1$name <- 'SLIIT'
+col2$name <- 'Local Universities'
+
+
+t3 <- rbind(col1,col2)
+t3 <- t3 %>% rename(work=Var1)
+
+
+ggplot(t3) + geom_bar(aes(x = work, y = Freq, fill=name),
+                      position = 'dodge', stat = 'identity')+
+  xlab('WorkPlace')+
+  ylab('Percentage(%)')+ 
+  ggtitle('SLIIT vs Local University Immigration')
+
+
+###############################################################################
+##############################################################################
+###8-Expected Salary Vs WorkPlace Graph
+
+ggplot(new_data,aes(x=WorkPlace,y=Salary))+
+  geom_bin2d()+
+  scale_fill_gradient(high = 'red',low = 'blue')+
+  xlab('WorkPlace')+
+  ylab('Expected Salary')
+
 
 unique(new_data$WorkPlace)
 colnames(new_data)
