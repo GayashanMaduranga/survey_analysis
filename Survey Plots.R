@@ -16,9 +16,16 @@ new_data <- data %>% rename(University = What.is.your.University.) %>%
             rename(job = Wish.to.work.industry.field.job.) %>%
             rename(Position =In.a.Department.which..position.would.u.prefer.)
            
-##Correct Typos
+
+
+##Correct Typos in Salary
 new_data <- new_data %>% mutate(Salary=replace(Salary,Salary=='Gather than Rs. 150 000','Greater than Rs. 150 000')) %>%
   mutate(Salary=replace(Salary,Salary=='Geater than Rs. 150 000','Greater than Rs. 150 000'))
+
+##Correct Typos in Distance
+new_data <- new_data %>% mutate(Distance=replace(Distance,Distance=='Geater than 30 km','Greater than 30 km')) %>%
+  mutate(Distance=replace(Distance,Distance=='Gather than 30 km','Greater than 30 km'))
+new_data$Distance %>% head()
 
 ##Drop Na Values
 new_data <- drop_na(new_data) 
@@ -28,8 +35,8 @@ new_data <- drop_na(new_data)
 new_data <- new_data %>% arrange(Salary)
 
 new_data$Salary <- factor(new_data$Salary,levels = c('Rs.25 000 to 50 000','Rs.50 000 to 100 000','Rs.100 000 to 150 000','Greater than Rs. 150 000'))
-
-
+new_data$Distance <- factor(new_data$Distance,levels = c('Less than 5 km','5 km to 10 km','10 km to 30 km','Greater than 30 km'))
+##Filter values
 t1 <- new_data %>% filter(University=='SLIIT')
 t2 <- new_data %>% filter(University=='University of Moratuwa' | University=='University of Colombo' | University=='University of Sri Jayewardenepura')
 
@@ -43,9 +50,7 @@ col2$name <- 'Local Universities'
 t3 <- rbind(col1,col2)
 t3 <- t3 %>% rename(Sal=Var1)
 
-
-
-
+## Plot Salary
 ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
                       position = 'dodge', stat = 'identity')+
                 xlab('Percentage')+
@@ -53,7 +58,26 @@ ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
                 ggtitle('SLIIT vs Local University Salary Expectations')+
                 coord_flip()
 
+##########################################################################
+##########################################################################
+col1<-as.data.frame(table(t1$Distance)*100/nrow(t1))
+col2<-as.data.frame(table(t2$Distance)*100/nrow(t2))
+col1$name <- 'SLIIT'
+col2$name <- 'Local Universities'
 
-colnames(data)
+
+t3 <- rbind(col1,col2)
+t3 <- t3 %>% rename(Dis=Var1)
+
+## Plot Salary
+ggplot(t3) + geom_bar(aes(x = Dis, y = Freq, fill=name),
+                      position = 'dodge', stat = 'identity')+
+  xlab('Percentage')+
+  ylab('Distance')+ 
+  ggtitle('SLIIT vs Local University Commute Distance')+
+  coord_flip()
+
+unique(new_data$Distance)
+colnames(new_data)
 
 
