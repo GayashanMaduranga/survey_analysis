@@ -98,11 +98,17 @@ ggplot(t3) + geom_bar(aes(x = Hig, y = Freq, fill=name),
 
 ###############################################################################
 ##############################################################################
+###Expected Salary Vs Commute Distance Graph
+
+ggplot(new_data,aes(x=Distance,y=Salary))+
+  geom_bin2d()+
+  scale_fill_gradient(high = 'red',low = 'blue')+
+  xlab('Commute Distance')+
+  ylab('Expected Salary')
 
 
 
-
-unique(new_data$HigherStudies)
+unique(new_data$Sector)
 colnames(new_data)
 
-
+plot(new_data$Distance,new_data$Salary)
