@@ -37,7 +37,7 @@ t2 <- new_data %>% filter(University=='University of Moratuwa' | University=='Un
 col1<-as.data.frame(table(t1$Salary)*100/nrow(t1))
 col2<-as.data.frame(table(t2$Salary)*100/nrow(t2))
 col1$name <- 'SLIIT'
-col2$name <- 'UOM'
+col2$name <- 'Local Universities'
 
 
 t3 <- rbind(col1,col2)
@@ -47,7 +47,11 @@ t3 <- t3 %>% rename(Sal=Var1)
 
 
 ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
-                      position = 'dodge', stat = 'identity')+ coord_flip()
+                      position = 'dodge', stat = 'identity')+
+                xlab('Percentage')+
+                ylab('Salary')+ 
+                ggtitle('SLIIT vs Local University Salary Expectations')+
+                coord_flip()
 
 
 colnames(data)
