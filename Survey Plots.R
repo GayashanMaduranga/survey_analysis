@@ -50,7 +50,7 @@ col2$name <- 'Local Universities'
 t3 <- rbind(col1,col2)
 t3 <- t3 %>% rename(Sal=Var1)
 
-## Plot Salary
+## 1-Plot Salary
 ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
                       position = 'dodge', stat = 'identity')+
                 xlab('Percentage(%)')+
@@ -60,7 +60,7 @@ ggplot(t3) + geom_bar(aes(x = Sal, y = Freq, fill=name),
 
 ##########################################################################
 ##########################################################################
-##Commute Distance Plot
+##2-Commute Distance Plot
 col1<-as.data.frame(table(t1$Distance)*100/nrow(t1))
 col2<-as.data.frame(table(t2$Distance)*100/nrow(t2))
 col1$name <- 'SLIIT'
@@ -79,7 +79,7 @@ ggplot(t3) + geom_bar(aes(x = Dis, y = Freq, fill=name),
   coord_flip()
 ######################################################################
 ######################################################################
-##HigherStudies Plot
+##3-HigherStudies Plot
 col1<-as.data.frame(table(t1$HigherStudies)*100/nrow(t1))
 col2<-as.data.frame(table(t2$HigherStudies)*100/nrow(t2))
 col1$name <- 'SLIIT'
@@ -98,7 +98,7 @@ ggplot(t3) + geom_bar(aes(x = Hig, y = Freq, fill=name),
 
 ###############################################################################
 ##############################################################################
-###Expected Salary Vs Commute Distance Graph
+###4-Expected Salary Vs Commute Distance Graph
 
 ggplot(new_data,aes(x=Distance,y=Salary))+
   geom_bin2d()+
@@ -106,9 +106,35 @@ ggplot(new_data,aes(x=Distance,y=Salary))+
   xlab('Commute Distance')+
   ylab('Expected Salary')
 
+##########################################################################
+##########################################################################
+##5-Position Plot
+col1<-as.data.frame(table(t1$Position)*100/nrow(t1))
+col2<-as.data.frame(table(t2$Position)*100/nrow(t2))
+col1$name <- 'SLIIT'
+col2$name <- 'Local Universities'
 
 
-unique(new_data$Sector)
+t3 <- rbind(col1,col2)
+t3 <- t3 %>% rename(Pos=Var1)
+
+
+ggplot(t3) + geom_bar(aes(x = Pos, y = Freq, fill=name),
+                      position = 'dodge', stat = 'identity')+
+  xlab('HigherStudies')+
+  ylab('Percentage(%)')+ 
+  ggtitle('SLIIT vs Local University Higher Studies')
+###############################################################################
+##############################################################################
+###6-Expected Salary Vs Commute Distance Graph
+
+ggplot(new_data,aes(x=Field,y=Salary))+
+  geom_point()+facet_grid(WorkPlace~.)+
+  xlab('Commute Distance')+
+  ylab('Field')
+
+unique(new_data$WorkPlace)
 colnames(new_data)
 
-plot(new_data$Distance,new_data$Salary)
+
+
