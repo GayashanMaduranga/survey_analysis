@@ -121,17 +121,17 @@ t3 <- t3 %>% rename(Pos=Var1)
 
 ggplot(t3) + geom_bar(aes(x = Pos, y = Freq, fill=name),
                       position = 'dodge', stat = 'identity')+
-  xlab('HigherStudies')+
+  xlab('Position')+
   ylab('Percentage(%)')+ 
-  ggtitle('SLIIT vs Local University Higher Studies')
+  ggtitle('SLIIT vs Local University job Position')
 ###############################################################################
 ##############################################################################
 ###6-Expected Salary Vs Field Graph
 
 ggplot(new_data,aes(x=Field,y=Salary))+
   geom_point()+facet_grid(WorkPlace~.)+
-  xlab('Commute Distance')+
-  ylab('Field')
+  xlab('Field')+
+  ylab('Salary')
 
 ######################################################################
 ######################################################################
